@@ -6,7 +6,8 @@ from .utils.network import request
 
 API = get_api('misc')
 
-async def web_search(keyword: str):
+
+async def web_search(keyword: str, **kwargs):
     """
     只指定关键字在 web 进行搜索，返回未经处理的字典
 
@@ -14,10 +15,9 @@ async def web_search(keyword: str):
         keyword (str): 搜索关键词
     """
     api = API["search"]["web_search"]
-    params = {
-        "keyword": keyword
-    }
-    return await request('GET', url=api["url"], params=params)
+    kwargs['keyword'] = keyword
+    return await request('GET', url=api["url"], params=kwargs)
+
 
 async def web_search_by_type(keyword: str, search_type: str):
     """
